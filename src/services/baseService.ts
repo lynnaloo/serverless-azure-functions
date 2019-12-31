@@ -4,7 +4,7 @@ import fs from "fs";
 import request from "request";
 import Serverless from "serverless";
 import { StorageAccountResource } from "../armTemplates/resources/storageAccount";
-import { ServerlessAzureConfig, ServerlessAzureOptions, ServerlessLogOptions } from "../models/serverless";
+import { ServerlessAzureConfig, ServerlessAzureOptions } from "../models/serverless";
 import { constants } from "../shared/constants";
 import { Guard } from "../shared/guard";
 import { Utils } from "../shared/utils";
@@ -34,7 +34,7 @@ export abstract class BaseService {
     this.baseUrl = "https://management.azure.com";
     this.serviceName = this.configService.getServiceName();
     this.credentials = serverless.variables[constants.variableKeys.azureCredentials];
-    this.subscriptionId = this.config.provider.subscriptionId;
+    this.subscriptionId = this.configService.getSubscriptionId();
     this.resourceGroup = this.configService.getResourceGroupName();
     this.deploymentName = this.configService.getDeploymentName();
     this.artifactName = this.configService.getArtifactName(this.deploymentName);
@@ -105,8 +105,8 @@ export abstract class BaseService {
    * Log message to Serverless CLI
    * @param message Message to log
    */
-  protected log(message: string, options?: ServerlessLogOptions, entity?: string) {
-    (this.serverless.cli.log as any)(message, entity, options);
+  protected log(message: string) {
+    this.serverless.cli.log(message);
   }  
 
   protected prettyPrint(object: any) {

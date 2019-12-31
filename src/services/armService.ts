@@ -17,6 +17,7 @@ export class ArmService extends BaseService {
 
   public constructor(serverless: Serverless, options: ServerlessAzureOptions) {
     super(serverless, options);
+    this.prettyPrint(this.subscriptionId);
     this.resourceClient = new ResourceManagementClient(this.credentials, this.subscriptionId);
   }
 
