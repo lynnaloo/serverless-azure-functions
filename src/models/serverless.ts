@@ -208,3 +208,23 @@ export interface ServerlessLogOptions {
   bold?: boolean;
   color?: string;
 }
+
+export interface AzureResourceInfo {
+  name: string;
+  resourceType: string;
+}
+
+export interface AzureFunctionAppInfo {
+  name: string;
+  runtime: string;
+}
+
+export interface AzureFunctionInfo {
+  name: string;
+  enabled: boolean;
+}
+
+export interface ServiceInfo {
+  resourceGroup: string;
+  resources: AzureResourceInfo[];
+}

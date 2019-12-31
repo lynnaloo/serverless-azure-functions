@@ -5,6 +5,7 @@ import { AzureLoginOptions } from "../../services/loginService";
 import { ResourceService } from "../../services/resourceService";
 import { AzureBasePlugin } from "../azureBasePlugin";
 import { ApimService } from "../../services/apimService";
+import { constants } from "../../shared/constants";
 
 export class AzureDeployPlugin extends AzureBasePlugin<AzureLoginOptions> {
   public commands: any;
@@ -18,29 +19,6 @@ export class AzureDeployPlugin extends AzureBasePlugin<AzureLoginOptions> {
       "deploy:apim:apim": this.deployApim.bind(this),
     };
 
-    const deployOptions = {
-      resourceGroup: {
-        usage: "Resource group for the service",
-        shortcut: "g",
-      },
-      stage: {
-        usage: "Stage of service",
-        shortcut: "s"
-      },
-      region: {
-        usage: "Region of service",
-        shortcut: "r"
-      },
-      subscriptionId: {
-        usage: "Sets the Azure subscription ID",
-        shortcut: "i",
-      },
-      function: {
-        usage: "Deployment of individual function - NOT SUPPORTED",
-        shortcut: "f",
-      }
-    }
-
     this.commands = {
       deploy: {
         commands: {
@@ -48,7 +26,7 @@ export class AzureDeployPlugin extends AzureBasePlugin<AzureLoginOptions> {
             usage: "List deployments",
             lifecycleEvents: ["list"],
             options: {
-              ...deployOptions
+              ...constants.deployedServiceOptions
             }
           },
           apim: {
@@ -57,7 +35,7 @@ export class AzureDeployPlugin extends AzureBasePlugin<AzureLoginOptions> {
           }
         },
         options: {
-          ...deployOptions
+          ...constants.deployedServiceOptions
         }
       }
     }

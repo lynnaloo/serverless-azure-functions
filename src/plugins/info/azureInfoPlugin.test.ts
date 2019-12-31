@@ -1,0 +1,6 @@
+
+describe("Info Plugin", () => {
+  it("", () => {
+
+  });
+});
